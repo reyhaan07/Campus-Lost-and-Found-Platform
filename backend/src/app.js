@@ -15,6 +15,9 @@ dotenv.config();
 
 const app = express();
 
+// Render and other hosts sit behind a proxy; needed for correct client IPs in rate limiting
+app.set('trust proxy', 1);
+
 app.use(helmet());
 app.use(cors({ origin: process.env.FRONTEND_URL || '*', credentials: false }));
 app.use(express.json({ limit: '10mb' }));
